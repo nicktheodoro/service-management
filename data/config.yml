@@ -1,0 +1,16 @@
+database:
+  driver: "postgres"
+  dbname: "service_management"
+  username: "postgres"
+  password: "123456"
+  host: "localhost"
+  port: "5432"
+  max_lifetime: 7200
+  max_open_conns: 150
+  max_idle_conns: 50
+
+server:
+  port: "3000"
+  secret: "lLMYLO1yx1JEwiYoNpDvfJma3qwmGybmZYAfUWfVtlBUUQJX/zMQA4QVLm66tsWCB7MCT8ACeQcZhM2NMUqm+w=="
+  #release | debug
+  mode: "debug"
