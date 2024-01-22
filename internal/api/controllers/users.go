@@ -13,11 +13,11 @@ import (
 )
 
 type UserInput struct {
+	Firstname string `json:"first_name" binding:"required"`
+	Lastname  string `json:"last_name" binding:"required"`
 	Email     string `json:"email" binding:"required"`
-	Lastname  string `json:"lastname"`
-	Firstname string `json:"firstname"`
 	Password  string `json:"password" binding:"required"`
-	Role      string `json:"role"`
+	RoleID    uint64 `json:"role_id" binding:"required"`
 }
 
 func GetUser(c *gin.Context) {
@@ -55,7 +55,7 @@ func CreateUser(c *gin.Context) {
 		Firstname: userInput.Firstname,
 		Lastname:  userInput.Lastname,
 		Hash:      crypto.HashAndSalt([]byte(userInput.Password)),
-		Role:      models.UserRole{RoleName: userInput.Role},
+		RoleID:    userInput.RoleID,
 	}
 	err := r.Create(&user)
 	if err != nil {
@@ -85,7 +85,7 @@ func UpdateUser(c *gin.Context) {
 	user.Lastname = userInput.Lastname
 	user.Firstname = userInput.Firstname
 	user.Hash = crypto.HashAndSalt([]byte(userInput.Password))
-	// user.Role = models.UserRole{RoleName: userInput.Role}
+	user.RoleID = userInput.RoleID
 
 	err = r.Update(user)
 	if err != nil {

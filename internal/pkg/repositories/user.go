@@ -45,24 +45,14 @@ func (r *UserRepository) GetByUsername(email string) (*models.User, error) {
 }
 
 func (r *UserRepository) Create(user *models.User) error {
-	err := Create(&user)
-	if err != nil {
-		return err
-	}
-
-	return Save(&user)
+	return Create(&user)
 }
 
 func (r *UserRepository) Update(user *models.User) error {
 	where := models.User{}
 	where.ID = user.ID
 
-	err := Updates(where, user)
-	if err != nil {
-		return err
-	}
-
-	return Save(&user)
+	return Updates(where, user)
 }
 
 func (r *UserRepository) Delete(user *models.User) error {

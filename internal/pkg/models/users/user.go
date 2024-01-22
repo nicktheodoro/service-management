@@ -7,11 +7,12 @@ import (
 
 type User struct {
 	models.Model
-	Email     string   `gorm:"column:email;not null;unique_index:email" json:"email" form:"email"`
-	Firstname string   `gorm:"column:firstname;not null;" json:"firstname" form:"firstname"`
-	Lastname  string   `gorm:"column:lastname;not null;" json:"lastname" form:"lastname"`
-	Hash      string   `gorm:"column:hash;not null;" json:"hash"`
-	Role      UserRole `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Email     string   `gorm:"not null;unique_index:email" json:"email" form:"email"`
+	Firstname string   `gorm:"not null;" json:"firstname" form:"firstname"`
+	Lastname  string   `gorm:"not null;" json:"lastname" form:"lastname"`
+	Role      UserRole `gorm:"foreignKey:RoleID"`
+	Hash      string   `gorm:"not null;" json:"-"`
+	RoleID    uint64   `gorm:"not null;" json:"-"`
 }
 
 func (m *User) BeforeCreate() error {

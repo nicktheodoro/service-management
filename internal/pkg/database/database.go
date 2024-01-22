@@ -47,7 +47,7 @@ func SetupDB() {
 
 // Auto migrate project models
 func migration() {
-	DB.AutoMigrate(&users.User{})
+	DB.AutoMigrate(&users.User{}).AddForeignKey("role_id", "user_roles(id)", "CASCADE", "CASCADE")
 	DB.AutoMigrate(&users.UserRole{})
 }
 
