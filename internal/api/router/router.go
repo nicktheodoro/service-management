@@ -1,6 +1,8 @@
 package router
 
 import (
+	"service-management/internal/api/middlewares"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,9 +22,14 @@ func Setup(mode string) *gin.Engine {
 // Configure adds all routes to the router.
 func ConfigureRoutes(app *gin.Engine) *gin.Engine {
 	routes := userRoutes
+	routes = append(routes, authRoute)
 
 	for _, route := range routes {
-		app.Handle(route.Method, route.URI, route.HandlerFunc)
+		if route.RequireAuth {
+			app.Handle(route.Method, route.URI, middlewares.AuthRequired(), route.HandlerFunc)
+		} else {
+			app.Handle(route.Method, route.URI, route.HandlerFunc)
+		}
 	}
 
 	return app
