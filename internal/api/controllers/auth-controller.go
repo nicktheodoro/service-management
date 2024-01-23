@@ -5,8 +5,9 @@ import (
 	"log"
 	"net/http"
 	"service-management/internal/pkg/repositories"
+	"service-management/pkg/crypto"
+	"service-management/pkg/token"
 
-	"github.com/antonioalfa22/go-rest-template/pkg/crypto"
 	http_err "github.com/antonioalfa22/go-rest-template/pkg/http-err"
 	"github.com/gin-gonic/gin"
 )
@@ -33,6 +34,6 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	token, _ := crypto.CreateToken(user.Email)
+	token, _ := token.CreateToken(user.Email)
 	c.JSON(http.StatusOK, token)
 }
