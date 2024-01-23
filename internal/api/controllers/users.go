@@ -6,7 +6,7 @@ import (
 	"net/http"
 	models "service-management/internal/pkg/models/users"
 	"service-management/internal/pkg/repositories"
-	"service-management/internal/pkg/utils/crypto"
+	"service-management/pkg/crypto"
 
 	http_err "github.com/antonioalfa22/go-rest-template/pkg/http-err"
 	"github.com/gin-gonic/gin"

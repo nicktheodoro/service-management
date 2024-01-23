@@ -33,7 +33,7 @@ func (r *UserRepository) GetByID(id string) (*models.User, error) {
 	return &user, err
 }
 
-func (r *UserRepository) GetByUsername(email string) (*models.User, error) {
+func (r *UserRepository) GetByEmail(email string) (*models.User, error) {
 	var user models.User
 	where := models.User{}
 	where.Email = email
