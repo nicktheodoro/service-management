@@ -44,7 +44,7 @@ This API, built with the Gin framework and Gorm, provides a foundation for manag
 
 3. **Run the application:**
    ```bash
-   go run main.go
+   go run .\cmd\server\main.go
    ```
 
 ## Testing the API
