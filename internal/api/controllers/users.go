@@ -8,7 +8,8 @@ import (
 	"service-management/internal/pkg/repositories"
 	"service-management/pkg/crypto"
 
-	http_err "github.com/antonioalfa22/go-rest-template/pkg/http-err"
+	http_err "service-management/pkg/http-err"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,56 +25,56 @@ func GetUser(c *gin.Context) {
 	r := repositories.GetUserRepository()
 	id := c.Param("id")
 
-	user, err := r.GetByID(id)
+	model, err := r.GetByID(id)
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("user not found"))
 		log.Println(err)
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, model)
 }
 
 func GetUsers(c *gin.Context) {
 	r := repositories.GetUserRepository()
-	resp, err := r.Get()
+	models, err := r.GetAll()
 	if err != nil {
 		log.Println(err)
 		http_err.NewError(c, http.StatusNotFound, errors.New("users not found"))
 		return
 	}
 
-	c.JSON(http.StatusOK, resp)
+	c.JSON(http.StatusOK, models)
 }
 
 func CreateUser(c *gin.Context) {
 	r := repositories.GetUserRepository()
-	var userInput UserInput
-	_ = c.BindJSON(&userInput)
-	user := models.User{
-		Email:     userInput.Email,
-		Firstname: userInput.Firstname,
-		Lastname:  userInput.Lastname,
-		Hash:      crypto.HashAndSalt([]byte(userInput.Password)),
-		RoleID:    userInput.RoleID,
+	var input UserInput
+	_ = c.BindJSON(&input)
+	model := models.User{
+		Email:     input.Email,
+		Firstname: input.Firstname,
+		Lastname:  input.Lastname,
+		Hash:      crypto.HashAndSalt([]byte(input.Password)),
+		RoleID:    input.RoleID,
 	}
-	err := r.Create(&user)
+	err := r.Create(&model)
 	if err != nil {
 		http_err.NewError(c, http.StatusBadRequest, err)
 		log.Println(err)
 		return
 	}
 
-	c.JSON(http.StatusCreated, user)
+	c.JSON(http.StatusCreated, model)
 }
 
 func UpdateUser(c *gin.Context) {
 	id := c.Params.ByName("id")
 	r := repositories.GetUserRepository()
 
-	var userInput UserInput
-	_ = c.BindJSON(&userInput)
-	user, err := r.GetByID(id)
+	var input UserInput
+	_ = c.BindJSON(&input)
+	model, err := r.GetByID(id)
 
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("user not found"))
@@ -81,34 +82,34 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
-	user.Email = userInput.Email
-	user.Lastname = userInput.Lastname
-	user.Firstname = userInput.Firstname
-	user.Hash = crypto.HashAndSalt([]byte(userInput.Password))
-	user.RoleID = userInput.RoleID
+	model.Email = input.Email
+	model.Lastname = input.Lastname
+	model.Firstname = input.Firstname
+	model.Hash = crypto.HashAndSalt([]byte(input.Password))
+	model.RoleID = input.RoleID
 
-	err = r.Update(user)
+	err = r.Update(model)
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, err)
 		log.Println(err)
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, model)
 }
 
 func DeleteUser(c *gin.Context) {
 	id := c.Params.ByName("id")
 	r := repositories.GetUserRepository()
 
-	user, err := r.GetByID(id)
+	model, err := r.GetByID(id)
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("user not found"))
 		log.Println(err)
 		return
 	}
 
-	err = r.Delete(user)
+	err = r.Delete(model)
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, err)
 		log.Println(err)

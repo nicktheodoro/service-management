@@ -39,11 +39,6 @@ func Create(value interface{}) error {
 	return database.GetDB().Create(value).Error
 }
 
-// Save
-func Save(value interface{}) error {
-	return database.GetDB().Save(value).Error
-}
-
 // Updates
 func Updates(where interface{}, value interface{}) error {
 	return database.GetDB().Model(where).Updates(value).Error

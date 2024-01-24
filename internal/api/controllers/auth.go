@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"service-management/internal/pkg/repositories"
 	"service-management/pkg/crypto"
+	http_err "service-management/pkg/http-err"
 	"service-management/pkg/token"
 
-	http_err "github.com/antonioalfa22/go-rest-template/pkg/http-err"
 	"github.com/gin-gonic/gin"
 )
 

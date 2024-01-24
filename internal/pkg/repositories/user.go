@@ -16,45 +16,45 @@ func GetUserRepository() *UserRepository {
 	return userRepository
 }
 
-func (r *UserRepository) Get() (*[]models.User, error) {
-	var users []models.User
-	err := Find(&models.User{}, &users, []string{"Role"}, "id asc")
-	return &users, err
+func (r *UserRepository) GetAll() (*[]models.User, error) {
+	var m []models.User
+	err := Find(&models.User{}, &m, []string{"Role"}, "id asc")
+	return &m, err
 }
 
 func (r *UserRepository) GetByID(id string) (*models.User, error) {
-	var user models.User
+	var m models.User
 	where := models.User{}
 	where.ID, _ = strconv.ParseUint(id, 10, 64)
-	_, err := First(&where, &user, []string{"Role"})
+	_, err := First(&where, &m, []string{"Role"})
 	if err != nil {
 		return nil, err
 	}
-	return &user, err
+	return &m, err
 }
 
 func (r *UserRepository) GetByEmail(email string) (*models.User, error) {
-	var user models.User
+	var m models.User
 	where := models.User{}
 	where.Email = email
-	_, err := First(&where, &user, []string{"Role"})
+	_, err := First(&where, &m, []string{"Role"})
 	if err != nil {
 		return nil, err
 	}
-	return &user, err
+	return &m, err
 }
 
-func (r *UserRepository) Create(user *models.User) error {
-	return Create(&user)
+func (r *UserRepository) Create(model *models.User) error {
+	return Create(&model)
 }
 
-func (r *UserRepository) Update(user *models.User) error {
+func (r *UserRepository) Update(model *models.User) error {
 	where := models.User{}
-	where.ID = user.ID
+	where.ID = model.ID
 
-	return Updates(where, user)
+	return Updates(where, model)
 }
 
-func (r *UserRepository) Delete(user *models.User) error {
-	return Delete(user)
+func (r *UserRepository) Delete(model *models.User) error {
+	return Delete(model)
 }
