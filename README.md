@@ -6,7 +6,7 @@ This API, built with the Gin framework and Gorm, provides a foundation for manag
 
 ## Resources
 
-### User Management
+### User
 
 - **Get User by ID:** `GET /users/:id` - Retrieve information about a specific user.
 - **Get All Users:** `GET /users` - Retrieve information about all users.
@@ -14,7 +14,7 @@ This API, built with the Gin framework and Gorm, provides a foundation for manag
 - **Update User:** `PUT /users/:id` - Update information for a user.
 - **Delete User:** `DELETE /users/:id` - Delete a user.
 
-### User Role Management
+### User Role
 
 - **Get User Role by ID:** `GET /users/roles/:id` - Retrieve information about a specific user role.
 - **Get All User Roles:** `GET /users/roles` - Retrieve information about all user roles.
@@ -22,7 +22,7 @@ This API, built with the Gin framework and Gorm, provides a foundation for manag
 - **Update User Role:** `PUT /user/roles/:id` - Update information for a user role.
 - **Delete User Role:** `DELETE /user/roles/:id` - Delete a user role.
 
-### User Authentication
+### Authentication
 
 - **User Login:** `POST /login` - Authenticate a user and return a token.
 
@@ -30,7 +30,7 @@ This API, built with the Gin framework and Gorm, provides a foundation for manag
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/<your-username>/service-management-api.git
+   https://github.com/nicktheodoro/service-management.git
    ```
 
 2. **Install dependencies:**
