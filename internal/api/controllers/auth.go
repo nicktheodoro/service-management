@@ -17,6 +17,15 @@ type LoginInput struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// Login godoc
+//
+// @Description authenticate user and generate access token
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param input body LoginInput true "Login Input"
+// @Success 200 {string} string "JWT Token"
+// @Router /login [post]
 func Login(c *gin.Context) {
 	var loginInput LoginInput
 	_ = c.BindJSON(&loginInput)

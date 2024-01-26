@@ -1,0 +1,298 @@
+basePath: /
+definitions:
+  controllers.LoginInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  controllers.UserInput:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      role_id:
+        type: integer
+    required:
+    - email
+    - first_name
+    - last_name
+    - password
+    - role_id
+    type: object
+  controllers.UserRoleInput:
+    properties:
+      role_name:
+        type: string
+    required:
+    - role_name
+    type: object
+  users.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+      role:
+        $ref: '#/definitions/users.UserRole'
+      updated_at:
+        type: string
+    type: object
+  users.UserRole:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      role_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API REST in Golang with Gin Framework
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: authenticate user and generate access token
+      parameters:
+      - description: Login Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: JWT Token
+          schema:
+            type: string
+      tags:
+      - auth
+  /users:
+    get:
+      description: get all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/users.User'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: create a new user
+      parameters:
+      - description: User Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/users.User'
+      security:
+      - Authorization Token: []
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      description: delete an existing user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - users
+    get:
+      description: get User by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.User'
+      security:
+      - Authorization Token: []
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: update an existing user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.User'
+      security:
+      - Authorization Token: []
+      tags:
+      - users
+  /users/roles:
+    get:
+      description: get all user roles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/users.UserRole'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+    post:
+      consumes:
+      - application/json
+      description: create a new user role
+      parameters:
+      - description: User Role Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserRoleInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/users.UserRole'
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+  /users/roles/{id}:
+    delete:
+      description: delete an existing user role by ID
+      parameters:
+      - description: User Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+    get:
+      description: get user role by ID
+      parameters:
+      - description: User Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.UserRole'
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+    put:
+      consumes:
+      - application/json
+      description: update an existing user role by ID
+      parameters:
+      - description: User Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User Role Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserRoleInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.UserRole'
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

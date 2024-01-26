@@ -1,9 +1,12 @@
 package router
 
 import (
+	"net/http"
 	"service-management/internal/api/middlewares"
 
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Route struct {
@@ -34,7 +37,7 @@ func ConfigureRoutes(app *gin.Engine) *gin.Engine {
 		}
 	}
 
+	app.Handle(http.MethodGet, "/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	app.NoRoute(middlewares.NoRouteHandler())
-
 	return app
 }
