@@ -34,5 +34,7 @@ func ConfigureRoutes(app *gin.Engine) *gin.Engine {
 		}
 	}
 
+	app.NoRoute(middlewares.NoRouteHandler())
+
 	return app
 }

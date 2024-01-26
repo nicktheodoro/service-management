@@ -21,13 +21,14 @@ require (
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
 
 require (
-	github.com/antonioalfa22/go-rest-template v0.0.0-20220202160042-089f0e8de224
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-playground/assert/v2 v2.2.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
