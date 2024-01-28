@@ -23,7 +23,7 @@ go test -v ./test/...
 go get -u github.com/swaggo/swag/cmd/swag
 
 # Generate docs
-swag init --dir cmd/api --parseDependency --output docs
+swag init --dir cmd/server --parseDependency --output docs
 ```
 
    
