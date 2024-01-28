@@ -1,5 +1,24 @@
 basePath: /
 definitions:
+  controllers.CustomerInput:
+    properties:
+      address:
+        $ref: '#/definitions/customers.CustomerAddress'
+      document:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    required:
+    - address
+    - document
+    - email
+    - name
+    - phone
+    type: object
   controllers.LoginInput:
     properties:
       email:
@@ -36,6 +55,50 @@ definitions:
     required:
     - role_name
     type: object
+  customers.Customer:
+    properties:
+      address:
+        $ref: '#/definitions/customers.CustomerAddress'
+      created_at:
+        type: string
+      document:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phone:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  customers.CustomerAddress:
+    properties:
+      city:
+        type: string
+      complement:
+        type: string
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      district:
+        type: string
+      id:
+        type: integer
+      number:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+      updated_at:
+        type: string
+      zip_code:
+        type: string
+    type: object
   users.User:
     properties:
       created_at:
@@ -69,6 +132,106 @@ info:
   description: API REST in Golang with Gin Framework
   version: "1.0"
 paths:
+  /customers:
+    get:
+      description: get all customers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/customers.Customer'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - customers
+    post:
+      consumes:
+      - application/json
+      description: create a new user
+      parameters:
+      - description: Customer Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CustomerInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/customers.Customer'
+      security:
+      - Authorization Token: []
+      tags:
+      - customers
+  /customers/{id}:
+    delete:
+      description: delete an existing user by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - customers
+    get:
+      description: get Customer by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customers.Customer'
+      security:
+      - Authorization Token: []
+      tags:
+      - customers
+    put:
+      consumes:
+      - application/json
+      description: update an existing user by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Customer Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CustomerInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customers.Customer'
+      security:
+      - Authorization Token: []
+      tags:
+      - customers
   /login:
     post:
       consumes:
