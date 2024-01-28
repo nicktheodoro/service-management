@@ -10,4 +10,6 @@ func SetupTests() {
 	database.SetupDB()
 	database.GetDB().Exec("DELETE FROM users")
 	database.GetDB().Exec("DELETE FROM user_roles")
+	database.GetDB().Exec("DELETE FROM customers")
+	database.GetDB().Exec("DELETE FROM customers_address")
 }

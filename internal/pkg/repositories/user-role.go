@@ -7,13 +7,13 @@ import (
 
 type UserRoleRepository struct{}
 
-var repository *UserRoleRepository
+var userRoleRep *UserRoleRepository
 
 func GetUserRoleRepository() *UserRoleRepository {
-	if repository == nil {
-		repository = &UserRoleRepository{}
+	if userRoleRep == nil {
+		userRoleRep = &UserRoleRepository{}
 	}
-	return repository
+	return userRoleRep
 }
 
 func (r *UserRoleRepository) GetAll() (*[]models.UserRole, error) {
