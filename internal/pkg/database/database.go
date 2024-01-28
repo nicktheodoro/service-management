@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"service-management/internal/pkg/config"
+	"service-management/internal/pkg/models/customers"
 	"service-management/internal/pkg/models/users"
 	"time"
 
@@ -45,13 +46,14 @@ func SetupDB() {
 	migration()
 }
 
-// Auto migrate project models
-func migration() {
-	DB.AutoMigrate(&users.User{}).AddForeignKey("role_id", "user_roles(id)", "CASCADE", "CASCADE")
-	DB.AutoMigrate(&users.UserRole{})
+func GetDB() *gorm.DB {
+	return DB
 }
 
-func GetDB() *gorm.DB {
-	fmt.Print(DB)
-	return DB
+// Auto migrate project models
+func migration() {
+	DB.AutoMigrate(&users.UserRole{})
+	DB.AutoMigrate(&users.User{}).AddForeignKey("role_id", "user_roles(id)", "CASCADE", "CASCADE")
+	DB.AutoMigrate(&customers.Customer{})
+	DB.AutoMigrate(&customers.CustomerAddress{}).AddForeignKey("customer_id", "customers(id)", "CASCADE", "CASCADE")
 }
