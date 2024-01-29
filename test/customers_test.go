@@ -58,7 +58,11 @@ func TestUpdateCustomer(t *testing.T) {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
-	expect := CustomerTest.Name != modelToUpdate.Name || CustomerTest.Email != modelToUpdate.Email || CustomerTest.Phone != modelToUpdate.Phone || CustomerTest.Document != modelToUpdate.Document || CustomerTest.Address != modelToUpdate.Address
+	expect := CustomerTest.Name != modelToUpdate.Name ||
+		CustomerTest.Email != modelToUpdate.Email ||
+		CustomerTest.Phone != modelToUpdate.Phone ||
+		CustomerTest.Document != modelToUpdate.Document ||
+		CustomerTest.Address != modelToUpdate.Address
 
 	if !expect {
 		t.Fatalf("UpdateCustomer test failed")

@@ -13,4 +13,4 @@ server:
   port: "3000"
   secret: "lLMYLO1yx1JEwiYoNpDvfJma3qwmGybmZYAfUWfVtlBUUQJX/zMQA4QVLm66tsWCB7MCT8ACeQcZhM2NMUqm+w=="
   #release | debug
-  mode: "debug"
+  mode: "release"

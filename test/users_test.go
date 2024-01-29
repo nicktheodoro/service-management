@@ -41,7 +41,6 @@ func TestUpdateUser(t *testing.T) {
 	if err := r.Update(userToUpdate); err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
-	fmt.Println(userToUpdate.Firstname, userTest.Firstname)
 
 	expect := userTest.Firstname != userToUpdate.Firstname || userTest.Lastname != userToUpdate.Lastname || userTest.Email != userToUpdate.Email
 	if !expect {

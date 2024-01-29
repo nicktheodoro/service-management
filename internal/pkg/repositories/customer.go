@@ -33,17 +33,6 @@ func (r *CustomerRepository) GetByID(id string) (*models.Customer, error) {
 	return &m, err
 }
 
-func (r *CustomerRepository) GetByEmail(email string) (*models.Customer, error) {
-	var m models.Customer
-	where := models.Customer{}
-	where.Email = email
-	_, err := First(&where, &m, []string{"Role"})
-	if err != nil {
-		return nil, err
-	}
-	return &m, err
-}
-
 func (r *CustomerRepository) Create(model *models.Customer) error {
 	return Create(&model)
 }
