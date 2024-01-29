@@ -79,6 +79,170 @@ const docTemplate = `{
                 }
             }
         },
+        "/customers/addresses": {
+            "get": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "get all customers addresses",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customers addresses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/customers.CustomerAddress"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "create a new customer address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customers addresses"
+                ],
+                "parameters": [
+                    {
+                        "description": "Customer Address Input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CustomerAddressInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/customers.CustomerAddress"
+                        }
+                    }
+                }
+            }
+        },
+        "/customers/addresses/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "get Customer Address by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customers addresses"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer Address ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/customers.CustomerAddress"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "update an existing customer address by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "customers addresses"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Customer Address Input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.CustomerAddressInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/customers.CustomerAddress"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "delete an existing customer address by ID",
+                "tags": [
+                    "customers addresses"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer Address ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
         "/customers/{id}": {
             "get": {
                 "security": [
@@ -543,6 +707,44 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "controllers.CustomerAddressInput": {
+            "type": "object",
+            "required": [
+                "city",
+                "customer_id",
+                "district",
+                "number",
+                "state",
+                "street",
+                "zip_code"
+            ],
+            "properties": {
+                "city": {
+                    "type": "string"
+                },
+                "complement": {
+                    "type": "string"
+                },
+                "customer_id": {
+                    "type": "integer"
+                },
+                "district": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "street": {
+                    "type": "string"
+                },
+                "zip_code": {
+                    "type": "string"
+                }
+            }
+        },
         "controllers.CustomerInput": {
             "type": "object",
             "required": [

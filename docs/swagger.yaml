@@ -1,5 +1,32 @@
 basePath: /
 definitions:
+  controllers.CustomerAddressInput:
+    properties:
+      city:
+        type: string
+      complement:
+        type: string
+      customer_id:
+        type: integer
+      district:
+        type: string
+      number:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+      zip_code:
+        type: string
+    required:
+    - city
+    - customer_id
+    - district
+    - number
+    - state
+    - street
+    - zip_code
+    type: object
   controllers.CustomerInput:
     properties:
       address:
@@ -232,6 +259,106 @@ paths:
       - Authorization Token: []
       tags:
       - customers
+  /customers/addresses:
+    get:
+      description: get all customers addresses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/customers.CustomerAddress'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - customers addresses
+    post:
+      consumes:
+      - application/json
+      description: create a new customer address
+      parameters:
+      - description: Customer Address Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CustomerAddressInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/customers.CustomerAddress'
+      security:
+      - Authorization Token: []
+      tags:
+      - customers addresses
+  /customers/addresses/{id}:
+    delete:
+      description: delete an existing customer address by ID
+      parameters:
+      - description: Customer Address ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - customers addresses
+    get:
+      description: get Customer Address by ID
+      parameters:
+      - description: Customer Address ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customers.CustomerAddress'
+      security:
+      - Authorization Token: []
+      tags:
+      - customers addresses
+    put:
+      consumes:
+      - application/json
+      description: update an existing customer address by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Customer Address Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CustomerAddressInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customers.CustomerAddress'
+      security:
+      - Authorization Token: []
+      tags:
+      - customers addresses
   /login:
     post:
       consumes:
