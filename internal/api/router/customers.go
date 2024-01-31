@@ -22,7 +22,7 @@ var customerRoutes = []Route{
 		URI:         "/customers",
 		Method:      http.MethodPost,
 		HandlerFunc: controllers.CreateCustomer,
-		RequireAuth: false,
+		RequireAuth: true,
 	},
 	{
 		URI:         "/customers/:id",

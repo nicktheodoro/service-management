@@ -26,7 +26,7 @@ type CustomerAddressInput struct {
 // GetCustomersAddress godoc
 //
 // @Description get all customers addresses
-// @Tags customers addresses
+// @Tags customers_addresses
 // @Produce json
 // @Success 200 {array} customers.CustomerAddress
 // @Router /customers/addresses [get]
@@ -46,7 +46,7 @@ func GetCustomersAddresses(c *gin.Context) {
 // GetCustomerAddress godoc
 //
 //	@Description get Customer Address by ID
-//	@Tags customers addresses
+//	@Tags customers_addresses
 //	@Produce json
 //	@Param id path integer true "Customer Address ID"
 //	@Success 200 {object} customers.CustomerAddress
@@ -69,7 +69,7 @@ func GetCustomerAddress(c *gin.Context) {
 // CreateCustomerAddress godoc
 //
 // @Description create a new customer address
-// @Tags customers addresses
+// @Tags customers_addresses
 // @Accept json
 // @Produce json
 // @Param input body CustomerAddressInput true "Customer Address Input"
@@ -103,7 +103,7 @@ func CreateCustomerAddress(c *gin.Context) {
 // UpdateCustomerAddress godoc
 //
 // @Description update an existing customer address by ID
-// @Tags customers addresses
+// @Tags customers_addresses
 // @Accept json
 // @Produce json
 // @Param id path integer true "Customer ID"
@@ -120,7 +120,7 @@ func UpdateCustomerAddress(c *gin.Context) {
 	modelToUpdate, err := r.GetByID(id)
 
 	if err != nil {
-		http_err.NewError(c, http.StatusNotFound, errors.New("user not found"))
+		http_err.NewError(c, http.StatusNotFound, errors.New("costumer address not found"))
 		log.Println(err)
 		return
 	}
@@ -147,7 +147,7 @@ func UpdateCustomerAddress(c *gin.Context) {
 // DeleteCustomerAddress godoc
 //
 // @Description delete an existing customer address by ID
-// @Tags customers addresses
+// @Tags customers_addresses
 // @Param id path integer true "Customer Address ID"
 // @Success 204
 // @Router /customers/addresses/{id} [delete]

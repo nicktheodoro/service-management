@@ -33,7 +33,7 @@ func GetCustomer(c *gin.Context) {
 
 	model, err := r.GetByID(id)
 	if err != nil {
-		http_err.NewError(c, http.StatusNotFound, errors.New("user not found"))
+		http_err.NewError(c, http.StatusNotFound, errors.New("customer not found"))
 		log.Println(err)
 		return
 	}
@@ -63,7 +63,7 @@ func GetCustomers(c *gin.Context) {
 }
 
 // CreateCustomer godoc
-// @Description create a new user
+// @Description create a new Customer
 // @Tags customers
 // @Accept json
 // @Produce json
@@ -93,7 +93,7 @@ func CreateCustomer(c *gin.Context) {
 }
 
 // UpdateCustomer godoc
-// @Description update an existing user by ID
+// @Description update an existing customer by ID
 // @Tags customers
 // @Accept json
 // @Produce json
@@ -111,7 +111,7 @@ func UpdateCustomer(c *gin.Context) {
 	model, err := r.GetByID(id)
 
 	if err != nil {
-		http_err.NewError(c, http.StatusNotFound, errors.New("user not found"))
+		http_err.NewError(c, http.StatusNotFound, errors.New("customer not found"))
 		log.Println(err)
 		return
 	}
@@ -132,7 +132,7 @@ func UpdateCustomer(c *gin.Context) {
 }
 
 // DeleteCustomer godoc
-// @Description delete an existing user by ID
+// @Description delete an existing Customer by ID
 // @Tags customers
 // @Param id path integer true "Customer ID"
 // @Success 204
@@ -144,7 +144,7 @@ func DeleteCustomer(c *gin.Context) {
 
 	model, err := r.GetByID(id)
 	if err != nil {
-		http_err.NewError(c, http.StatusNotFound, errors.New("user not found"))
+		http_err.NewError(c, http.StatusNotFound, errors.New("customer not found"))
 		log.Println(err)
 		return
 	}
