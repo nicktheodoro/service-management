@@ -48,7 +48,7 @@ const docTemplate = `{
                         "Authorization Token": []
                     }
                 ],
-                "description": "create a new user",
+                "description": "create a new Customer",
                 "consumes": [
                     "application/json"
                 ],
@@ -91,7 +91,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "customers addresses"
+                    "customers_addresses"
                 ],
                 "responses": {
                     "200": {
@@ -119,7 +119,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "customers addresses"
+                    "customers_addresses"
                 ],
                 "parameters": [
                     {
@@ -154,7 +154,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "customers addresses"
+                    "customers_addresses"
                 ],
                 "parameters": [
                     {
@@ -188,7 +188,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "customers addresses"
+                    "customers_addresses"
                 ],
                 "parameters": [
                     {
@@ -225,7 +225,7 @@ const docTemplate = `{
                 ],
                 "description": "delete an existing customer address by ID",
                 "tags": [
-                    "customers addresses"
+                    "customers_addresses"
                 ],
                 "parameters": [
                     {
@@ -281,7 +281,7 @@ const docTemplate = `{
                         "Authorization Token": []
                     }
                 ],
-                "description": "update an existing user by ID",
+                "description": "update an existing customer by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -324,7 +324,7 @@ const docTemplate = `{
                         "Authorization Token": []
                     }
                 ],
-                "description": "delete an existing user by ID",
+                "description": "delete an existing Customer by ID",
                 "tags": [
                     "customers"
                 ],
@@ -373,6 +373,170 @@ const docTemplate = `{
                         "schema": {
                             "type": "string"
                         }
+                    }
+                }
+            }
+        },
+        "/services": {
+            "get": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "get all services",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "services"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/services.Service"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "create a new service",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "services"
+                ],
+                "parameters": [
+                    {
+                        "description": "Service Input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ServiceInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/services.Service"
+                        }
+                    }
+                }
+            }
+        },
+        "/services/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "get Service by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "services"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Service ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/services.Service"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "update an existing service by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "services"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Service ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "ServiceInput",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ServiceInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/services.Service"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "delete an existing service by ID",
+                "tags": [
+                    "services"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Service ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
                     }
                 }
             }
@@ -787,6 +951,27 @@ const docTemplate = `{
                 }
             }
         },
+        "controllers.ServiceInput": {
+            "type": "object",
+            "required": [
+                "description",
+                "value"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "integer"
+                }
+            }
+        },
         "controllers.UserInput": {
             "type": "object",
             "required": [
@@ -889,6 +1074,32 @@ const docTemplate = `{
                 },
                 "zip_code": {
                     "type": "string"
+                }
+            }
+        },
+        "services.Service": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
                 }
             }
         },

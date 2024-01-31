@@ -56,6 +56,20 @@ definitions:
     - email
     - password
     type: object
+  controllers.ServiceInput:
+    properties:
+      description:
+        type: string
+      note:
+        type: string
+      status:
+        type: integer
+      value:
+        type: integer
+    required:
+    - description
+    - value
+    type: object
   controllers.UserInput:
     properties:
       email:
@@ -126,6 +140,23 @@ definitions:
       zip_code:
         type: string
     type: object
+  services.Service:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      note:
+        type: string
+      status:
+        type: integer
+      updated_at:
+        type: string
+      value:
+        type: integer
+    type: object
   users.User:
     properties:
       created_at:
@@ -178,7 +209,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: create a new user
+      description: create a new Customer
       parameters:
       - description: Customer Input
         in: body
@@ -199,7 +230,7 @@ paths:
       - customers
   /customers/{id}:
     delete:
-      description: delete an existing user by ID
+      description: delete an existing Customer by ID
       parameters:
       - description: Customer ID
         in: path
@@ -235,7 +266,7 @@ paths:
     put:
       consumes:
       - application/json
-      description: update an existing user by ID
+      description: update an existing customer by ID
       parameters:
       - description: Customer ID
         in: path
@@ -274,7 +305,7 @@ paths:
       security:
       - Authorization Token: []
       tags:
-      - customers addresses
+      - customers_addresses
     post:
       consumes:
       - application/json
@@ -296,7 +327,7 @@ paths:
       security:
       - Authorization Token: []
       tags:
-      - customers addresses
+      - customers_addresses
   /customers/addresses/{id}:
     delete:
       description: delete an existing customer address by ID
@@ -312,7 +343,7 @@ paths:
       security:
       - Authorization Token: []
       tags:
-      - customers addresses
+      - customers_addresses
     get:
       description: get Customer Address by ID
       parameters:
@@ -331,7 +362,7 @@ paths:
       security:
       - Authorization Token: []
       tags:
-      - customers addresses
+      - customers_addresses
     put:
       consumes:
       - application/json
@@ -358,7 +389,7 @@ paths:
       security:
       - Authorization Token: []
       tags:
-      - customers addresses
+      - customers_addresses
   /login:
     post:
       consumes:
@@ -380,6 +411,106 @@ paths:
             type: string
       tags:
       - auth
+  /services:
+    get:
+      description: get all services
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/services.Service'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - services
+    post:
+      consumes:
+      - application/json
+      description: create a new service
+      parameters:
+      - description: Service Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ServiceInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/services.Service'
+      security:
+      - Authorization Token: []
+      tags:
+      - services
+  /services/{id}:
+    delete:
+      description: delete an existing service by ID
+      parameters:
+      - description: Service ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - services
+    get:
+      description: get Service by ID
+      parameters:
+      - description: Service ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.Service'
+      security:
+      - Authorization Token: []
+      tags:
+      - services
+    put:
+      consumes:
+      - application/json
+      description: update an existing service by ID
+      parameters:
+      - description: Service ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: ServiceInput
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ServiceInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.Service'
+      security:
+      - Authorization Token: []
+      tags:
+      - services
   /users:
     get:
       description: get all users
