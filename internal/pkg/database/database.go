@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"service-management/internal/pkg/config"
 	"service-management/internal/pkg/models/customers"
+	"service-management/internal/pkg/models/services"
 	"service-management/internal/pkg/models/users"
 	"time"
 
@@ -56,4 +57,5 @@ func migration() {
 	DB.AutoMigrate(&users.User{}).AddForeignKey("role_id", "user_roles(id)", "CASCADE", "CASCADE")
 	DB.AutoMigrate(&customers.Customer{})
 	DB.AutoMigrate(&customers.CustomerAddress{}).AddForeignKey("customer_id", "customers(id)", "CASCADE", "CASCADE")
+	DB.AutoMigrate(&services.Service{})
 }
