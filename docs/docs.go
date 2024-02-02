@@ -377,6 +377,170 @@ const docTemplate = `{
                 }
             }
         },
+        "/providers": {
+            "get": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "get all providers",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "providers"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/providers.Provider"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "create a new Provider",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "providers"
+                ],
+                "parameters": [
+                    {
+                        "description": "Provider Input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ProviderInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/providers.Provider"
+                        }
+                    }
+                }
+            }
+        },
+        "/providers/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "get Provider by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "providers"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Provider ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/providers.Provider"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "update an existing provider by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "providers"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Provider ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Provider Input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ProviderInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/providers.Provider"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "delete an existing Provider by ID",
+                "tags": [
+                    "providers"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Provider ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
         "/services": {
             "get": {
                 "security": [
@@ -946,6 +1110,32 @@ const docTemplate = `{
                 }
             }
         },
+        "controllers.ProviderInput": {
+            "type": "object",
+            "required": [
+                "document",
+                "email",
+                "name",
+                "phone"
+            ],
+            "properties": {
+                "document": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                }
+            }
+        },
         "controllers.ServiceInput": {
             "type": "object",
             "required": [
@@ -958,9 +1148,6 @@ const docTemplate = `{
                 },
                 "note": {
                     "type": "string"
-                },
-                "status": {
-                    "type": "integer"
                 },
                 "value": {
                     "type": "integer"
@@ -1066,6 +1253,35 @@ const docTemplate = `{
                 }
             }
         },
+        "providers.Provider": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "document": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
         "services.Service": {
             "type": "object",
             "properties": {
@@ -1080,9 +1296,6 @@ const docTemplate = `{
                 },
                 "note": {
                     "type": "string"
-                },
-                "status": {
-                    "type": "integer"
                 },
                 "updated_at": {
                     "type": "string"

@@ -52,14 +52,30 @@ definitions:
     - email
     - password
     type: object
+  controllers.ProviderInput:
+    properties:
+      document:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      note:
+        type: string
+      phone:
+        type: string
+    required:
+    - document
+    - email
+    - name
+    - phone
+    type: object
   controllers.ServiceInput:
     properties:
       description:
         type: string
       note:
         type: string
-      status:
-        type: integer
       value:
         type: integer
     required:
@@ -132,6 +148,25 @@ definitions:
       zip_code:
         type: string
     type: object
+  providers.Provider:
+    properties:
+      created_at:
+        type: string
+      document:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      note:
+        type: string
+      phone:
+        type: string
+      updated_at:
+        type: string
+    type: object
   services.Service:
     properties:
       created_at:
@@ -142,8 +177,6 @@ definitions:
         type: integer
       note:
         type: string
-      status:
-        type: integer
       updated_at:
         type: string
       value:
@@ -403,6 +436,106 @@ paths:
             type: string
       tags:
       - auth
+  /providers:
+    get:
+      description: get all providers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/providers.Provider'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - providers
+    post:
+      consumes:
+      - application/json
+      description: create a new Provider
+      parameters:
+      - description: Provider Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ProviderInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/providers.Provider'
+      security:
+      - Authorization Token: []
+      tags:
+      - providers
+  /providers/{id}:
+    delete:
+      description: delete an existing Provider by ID
+      parameters:
+      - description: Provider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - providers
+    get:
+      description: get Provider by ID
+      parameters:
+      - description: Provider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/providers.Provider'
+      security:
+      - Authorization Token: []
+      tags:
+      - providers
+    put:
+      consumes:
+      - application/json
+      description: update an existing provider by ID
+      parameters:
+      - description: Provider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Provider Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ProviderInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/providers.Provider'
+      security:
+      - Authorization Token: []
+      tags:
+      - providers
   /services:
     get:
       description: get all services

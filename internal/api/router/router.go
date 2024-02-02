@@ -28,6 +28,7 @@ func ConfigureRoutes(app *gin.Engine) *gin.Engine {
 	routes = append(routes, authRoute)
 	routes = append(routes, customerRoutes...)
 	routes = append(routes, customerAddressRoutes...)
+	routes = append(routes, providerRoutes...)
 	routes = append(routes, serviceRoutes...)
 	routes = append(routes, userRoutes...)
 	routes = append(routes, userRoleRoutes...)
