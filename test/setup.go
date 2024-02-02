@@ -12,4 +12,5 @@ func SetupTests() {
 	database.GetDB().Exec("DELETE FROM user_roles")
 	database.GetDB().Exec("DELETE FROM customers")
 	database.GetDB().Exec("DELETE FROM customers_address")
+	database.GetDB().Exec("DELETE FROM services")
 }

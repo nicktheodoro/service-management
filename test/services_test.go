@@ -15,7 +15,6 @@ func TestAddService(t *testing.T) {
 	modelToAdd := models.Service{
 		Description: "Interior painting",
 		Value:       1000,
-		Status:      models.Requested,
 	}
 
 	r := repositories.GetServiceRepository()
@@ -37,7 +36,6 @@ func TestUpdateService(t *testing.T) {
 	modelToUpdate.Description = "updated"
 	modelToUpdate.Value = 1993
 	modelToUpdate.Note = "updated"
-	modelToUpdate.Status = models.Canceled
 
 	if err := r.Update(modelToUpdate); err != nil {
 		t.Fatalf("Expected no error, got %v", err)
@@ -45,8 +43,7 @@ func TestUpdateService(t *testing.T) {
 
 	expect := ServiceTest.Description != modelToUpdate.Description ||
 		ServiceTest.Value != modelToUpdate.Value ||
-		ServiceTest.Note != modelToUpdate.Note ||
-		ServiceTest.Status != modelToUpdate.Status
+		ServiceTest.Note != modelToUpdate.Note
 
 	if !expect {
 		t.Fatalf("UpdateCustomer test failed")

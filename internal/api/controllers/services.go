@@ -13,10 +13,9 @@ import (
 )
 
 type ServiceInput struct {
-	Description string               `json:"description" binding:"required"`
-	Value       int64                `json:"value" binding:"required"`
-	Note        string               `json:"note"`
-	Status      models.ServiceStatus `json:"status"`
+	Description string `json:"description" binding:"required"`
+	Value       int64  `json:"value" binding:"required"`
+	Note        string `json:"note"`
 }
 
 // GetServices godoc
@@ -80,7 +79,6 @@ func CreateService(c *gin.Context) {
 		Description: input.Description,
 		Value:       input.Value,
 		Note:        input.Note,
-		Status:      models.Requested,
 	}
 	err := r.Create(&modelToAdd)
 	if err != nil {
@@ -120,7 +118,6 @@ func UpdateService(c *gin.Context) {
 	modelToUpdate.Description = input.Description
 	modelToUpdate.Value = input.Value
 	modelToUpdate.Note = input.Note
-	modelToUpdate.Status = input.Status
 
 	err = r.Update(modelToUpdate)
 
