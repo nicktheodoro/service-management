@@ -16,17 +16,21 @@ func GetCustomerAddressRepository() *CustomerAddressRepository {
 	return customerAddressRep
 }
 
-func (r *CustomerAddressRepository) GetAll() (*[]models.CustomerAddress, error) {
+func (r *CustomerAddressRepository) GetAll(customerID string) (*[]models.CustomerAddress, error) {
 	var m []models.CustomerAddress
-	err := Find(&models.CustomerAddress{}, &m, []string{}, "id asc")
+	w := models.CustomerAddress{}
+	w.CustomerID, _ = strconv.ParseUint(customerID, 10, 64)
+
+	err := Find(&w, &m, []string{}, "id asc")
 	return &m, err
 }
 
-func (r *CustomerAddressRepository) GetByID(id string) (*models.CustomerAddress, error) {
+func (r *CustomerAddressRepository) GetByID(customerID, id string) (*models.CustomerAddress, error) {
 	var m models.CustomerAddress
-	where := models.CustomerAddress{}
-	where.ID, _ = strconv.ParseUint(id, 10, 64)
-	_, err := First(&where, &m, []string{})
+	w := models.CustomerAddress{}
+	w.ID, _ = strconv.ParseUint(id, 10, 64)
+	w.CustomerID, _ = strconv.ParseUint(customerID, 10, 64)
+	_, err := First(&w, &m, []string{})
 
 	if err != nil {
 		return nil, err
@@ -39,9 +43,9 @@ func (r *CustomerAddressRepository) Create(model *models.CustomerAddress) error 
 }
 
 func (r *CustomerAddressRepository) Update(model *models.CustomerAddress) error {
-	where := models.CustomerAddress{}
-	where.ID = model.ID
-	return Updates(where, model)
+	w := models.CustomerAddress{}
+	w.ID = model.ID
+	return Updates(&w, &model)
 }
 
 func (r *CustomerAddressRepository) Delete(model *models.CustomerAddress) error {

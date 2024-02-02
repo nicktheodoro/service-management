@@ -7,31 +7,31 @@ import (
 
 var customerAddressRoutes = []Route{
 	{
-		URI:         "/customers/addresses",
+		URI:         "/customers/:id/addresses",
 		Method:      http.MethodGet,
-		HandlerFunc: controllers.GetCustomersAddresses,
+		HandlerFunc: controllers.GetCustomerAddresses,
 		RequireAuth: true,
 	},
 	{
-		URI:         "/customers/addresses/:id",
+		URI:         "/customers/:id/addresses/:addressId",
 		Method:      http.MethodGet,
 		HandlerFunc: controllers.GetCustomerAddress,
 		RequireAuth: true,
 	},
 	{
-		URI:         "/customers/addresses",
+		URI:         "/customers/:id/addresses",
 		Method:      http.MethodPost,
 		HandlerFunc: controllers.CreateCustomerAddress,
 		RequireAuth: true,
 	},
 	{
-		URI:         "/customers/addresses/:id",
+		URI:         "/customers/:id/addresses/:addressId",
 		Method:      http.MethodPut,
 		HandlerFunc: controllers.UpdateCustomerAddress,
 		RequireAuth: true,
 	},
 	{
-		URI:         "/customers/addresses/:id",
+		URI:         "/customers/:id/addresses/:addressId",
 		Method:      http.MethodDelete,
 		HandlerFunc: controllers.DeleteCustomerAddress,
 		RequireAuth: true,

@@ -11,5 +11,5 @@ type CustomerAddress struct {
 	District   string `gorm:"not null;" json:"district" form:"district"`
 	City       string `gorm:"not null;" json:"city" form:"city"`
 	State      string `gorm:"not null; size:2" json:"state" form:"state"`
-	CustomerID uint64 `json:"customer_id" form:"customer_id"`
+	CustomerID uint64 `json:"-"`
 }

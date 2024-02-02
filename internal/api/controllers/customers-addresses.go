@@ -6,6 +6,7 @@ import (
 	"net/http"
 	models "service-management/internal/pkg/models/customers"
 	"service-management/internal/pkg/repositories"
+	"strconv"
 
 	http_err "service-management/pkg/http-err"
 
@@ -20,23 +21,24 @@ type CustomerAddressInput struct {
 	District   string `json:"district" binding:"required"`
 	City       string `json:"city" binding:"required"`
 	State      string `json:"state" binding:"required"`
-	CustomerID uint64 `json:"customer_id" binding:"required"`
 }
 
-// GetCustomersAddress godoc
+// GetCustomerAddresses godoc
 //
-// @Description get all customers addresses
+// @Description get all customer addresses
 // @Tags customers_addresses
 // @Produce json
 // @Success 200 {array} customers.CustomerAddress
-// @Router /customers/addresses [get]
+// @Router /customers/{id}/addresses [get]
 // @Security Authorization Token
-func GetCustomersAddresses(c *gin.Context) {
+func GetCustomerAddresses(c *gin.Context) {
+	customerID := c.Param("id")
 	r := repositories.GetCustomerAddressRepository()
-	res, err := r.GetAll()
+
+	res, err := r.GetAll(customerID)
 	if err != nil {
 		log.Println(err)
-		http_err.NewError(c, http.StatusNotFound, errors.New("customers addresses not found"))
+		http_err.NewError(c, http.StatusNotFound, errors.New("customer addresses not found"))
 		return
 	}
 
@@ -50,13 +52,14 @@ func GetCustomersAddresses(c *gin.Context) {
 //	@Produce json
 //	@Param id path integer true "Customer Address ID"
 //	@Success 200 {object} customers.CustomerAddress
-//	@Router /customers/addresses/{id} [get]
+//	@Router /customers/{id}/addresses/{addressId} [get]
 //	@Security Authorization Token
 func GetCustomerAddress(c *gin.Context) {
+	customerID := c.Params.ByName("id")
+	addressID := c.Params.ByName("addressId")
 	r := repositories.GetCustomerAddressRepository()
-	id := c.Param("id")
 
-	res, err := r.GetByID(id)
+	res, err := r.GetByID(customerID, addressID)
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("costumer address not found"))
 		log.Println(err)
@@ -74,10 +77,12 @@ func GetCustomerAddress(c *gin.Context) {
 // @Produce json
 // @Param input body CustomerAddressInput true "Customer Address Input"
 // @Success 201 {object} customers.CustomerAddress
-// @Router /customers/addresses [post]
+// @Router /customers/{id}/addresses [post]
 // @Security Authorization Token
 func CreateCustomerAddress(c *gin.Context) {
+	customerID, _ := strconv.ParseUint(c.Param("id"), 10, 64)
 	r := repositories.GetCustomerAddressRepository()
+
 	var input CustomerAddressInput
 	_ = c.BindJSON(&input)
 	modelToAdd := models.CustomerAddress{
@@ -88,7 +93,7 @@ func CreateCustomerAddress(c *gin.Context) {
 		District:   input.District,
 		City:       input.City,
 		State:      input.State,
-		CustomerID: input.CustomerID,
+		CustomerID: customerID,
 	}
 	err := r.Create(&modelToAdd)
 	if err != nil {
@@ -109,15 +114,16 @@ func CreateCustomerAddress(c *gin.Context) {
 // @Param id path integer true "Customer ID"
 // @Param input body CustomerAddressInput true "Customer Address Input"
 // @Success 200 {object} customers.CustomerAddress
-// @Router /customers/addresses/{id} [put]
+// @Router /customers/{id}/addresses/{addressId} [put]
 // @Security Authorization Token
 func UpdateCustomerAddress(c *gin.Context) {
-	id := c.Params.ByName("id")
+	customerID := c.Params.ByName("id")
+	addressID := c.Params.ByName("addressId")
 	r := repositories.GetCustomerAddressRepository()
 
 	var input CustomerAddressInput
 	_ = c.BindJSON(&input)
-	modelToUpdate, err := r.GetByID(id)
+	modelToUpdate, err := r.GetByID(customerID, addressID)
 
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("costumer address not found"))
@@ -150,13 +156,14 @@ func UpdateCustomerAddress(c *gin.Context) {
 // @Tags customers_addresses
 // @Param id path integer true "Customer Address ID"
 // @Success 204
-// @Router /customers/addresses/{id} [delete]
+// @Router /customers/{id}/addresses/{addressId} [delete]
 // @Security Authorization Token
 func DeleteCustomerAddress(c *gin.Context) {
-	id := c.Params.ByName("id")
+	customerID := c.Params.ByName("id")
+	addressID := c.Params.ByName("addressId")
 	r := repositories.GetCustomerAddressRepository()
 
-	modelToDelete, err := r.GetByID(id)
+	modelToDelete, err := r.GetByID(customerID, addressID)
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("costumer address not found"))
 		log.Println(err)

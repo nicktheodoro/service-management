@@ -17,7 +17,7 @@ type CustomerInput struct {
 	Email    string                 `json:"email" binding:"required"`
 	Phone    string                 `json:"phone" binding:"required"`
 	Document string                 `json:"document" binding:"required"`
-	Address  models.CustomerAddress `json:"address" binding:"required"`
+	Address  models.CustomerAddress `json:"address"`
 }
 
 // GetCustomer godoc

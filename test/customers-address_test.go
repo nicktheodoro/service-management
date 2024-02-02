@@ -42,9 +42,11 @@ func TestAddCustomerAddress(t *testing.T) {
 }
 
 func TestUpdateCustomerAddress(t *testing.T) {
+	customerID := fmt.Sprint(CustomerTest.ID)
+	customerAddressID := fmt.Sprint(CustomerAddressTest.ID)
 	r := repositories.GetCustomerAddressRepository()
 
-	modelToUpdate, err := r.GetByID(fmt.Sprint(CustomerAddressTest.ID))
+	modelToUpdate, err := r.GetByID(customerID, customerAddressID)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
@@ -73,23 +75,30 @@ func TestUpdateCustomerAddress(t *testing.T) {
 }
 
 func TestGetAllCustomersAddress(t *testing.T) {
+	customerID := fmt.Sprint(CustomerTest.ID)
 	r := repositories.GetCustomerAddressRepository()
-	if _, err := r.GetAll(); err != nil {
+
+	if _, err := r.GetAll(customerID); err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 }
 
 func TestGetCustomerAddressById(t *testing.T) {
+	customerID := fmt.Sprint(CustomerTest.ID)
+	customerAddressID := fmt.Sprint(CustomerAddressTest.ID)
 	r := repositories.GetCustomerAddressRepository()
-	if _, err := r.GetByID(fmt.Sprint(CustomerAddressTest.ID)); err != nil {
+
+	if _, err := r.GetByID(customerID, customerAddressID); err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 }
 
 func TestDeleteCustomerAddress(t *testing.T) {
+	customerID := fmt.Sprint(CustomerTest.ID)
+	customerAddressID := fmt.Sprint(CustomerAddressTest.ID)
 	r := repositories.GetCustomerAddressRepository()
 
-	modelToDelete, err := r.GetByID(fmt.Sprint(CustomerAddressTest.ID))
+	modelToDelete, err := r.GetByID(customerID, customerAddressID)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}

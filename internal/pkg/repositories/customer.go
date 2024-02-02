@@ -18,7 +18,7 @@ func GetCustomerRepository() *CustomerRepository {
 
 func (r *CustomerRepository) GetAll() (*[]models.Customer, error) {
 	var m []models.Customer
-	err := Find(&models.Customer{}, &m, []string{"Address"}, "id asc")
+	err := Find(&models.Customer{}, &m, []string{}, "id asc")
 	return &m, err
 }
 
@@ -26,7 +26,7 @@ func (r *CustomerRepository) GetByID(id string) (*models.Customer, error) {
 	var m models.Customer
 	where := models.Customer{}
 	where.ID, _ = strconv.ParseUint(id, 10, 64)
-	_, err := First(&where, &m, []string{"Address"})
+	_, err := First(&where, &m, []string{})
 	if err != nil {
 		return nil, err
 	}
