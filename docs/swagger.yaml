@@ -503,6 +503,106 @@ paths:
       - Authorization Token: []
       tags:
       - services
+  /user-roles:
+    get:
+      description: get all user roles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/users.UserRole'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+    post:
+      consumes:
+      - application/json
+      description: create a new user role
+      parameters:
+      - description: User Role Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserRoleInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/users.UserRole'
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+  /user-roles/{id}:
+    delete:
+      description: delete an existing user role by ID
+      parameters:
+      - description: User Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+    get:
+      description: get user role by ID
+      parameters:
+      - description: User Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.UserRole'
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
+    put:
+      consumes:
+      - application/json
+      description: update an existing user role by ID
+      parameters:
+      - description: User Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User Role Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.UserRoleInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.UserRole'
+      security:
+      - Authorization Token: []
+      tags:
+      - user_roles
   /users:
     get:
       description: get all users
@@ -603,106 +703,6 @@ paths:
       - Authorization Token: []
       tags:
       - users
-  /users/roles:
-    get:
-      description: get all user roles
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/users.UserRole'
-            type: array
-      security:
-      - Authorization Token: []
-      tags:
-      - user_roles
-    post:
-      consumes:
-      - application/json
-      description: create a new user role
-      parameters:
-      - description: User Role Input
-        in: body
-        name: input
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.UserRoleInput'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/users.UserRole'
-      security:
-      - Authorization Token: []
-      tags:
-      - user_roles
-  /users/roles/{id}:
-    delete:
-      description: delete an existing user role by ID
-      parameters:
-      - description: User Role ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      responses:
-        "204":
-          description: No Content
-      security:
-      - Authorization Token: []
-      tags:
-      - user_roles
-    get:
-      description: get user role by ID
-      parameters:
-      - description: User Role ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/users.UserRole'
-      security:
-      - Authorization Token: []
-      tags:
-      - user_roles
-    put:
-      consumes:
-      - application/json
-      description: update an existing user role by ID
-      parameters:
-      - description: User Role ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: User Role Input
-        in: body
-        name: input
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.UserRoleInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/users.UserRole'
-      security:
-      - Authorization Token: []
-      tags:
-      - user_roles
 securityDefinitions:
   ApiKeyAuth:
     in: header

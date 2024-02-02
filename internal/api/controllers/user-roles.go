@@ -22,7 +22,7 @@ type UserRoleInput struct {
 // @Produce json
 // @Param id path integer true "User Role ID"
 // @Success 200 {object} models.UserRole
-// @Router /users/roles/{id} [get]
+// @Router /user-roles/{id} [get]
 // @Security Authorization Token
 func GetUserRole(c *gin.Context) {
 	r := repositories.GetUserRoleRepository()
@@ -44,7 +44,7 @@ func GetUserRole(c *gin.Context) {
 // @Tags user_roles
 // @Produce json
 // @Success 200 {array} models.UserRole
-// @Router /users/roles [get]
+// @Router /user-roles [get]
 // @Security Authorization Token
 func GetUserRoles(c *gin.Context) {
 	r := repositories.GetUserRoleRepository()
@@ -66,7 +66,7 @@ func GetUserRoles(c *gin.Context) {
 // @Produce json
 // @Param input body UserRoleInput true "User Role Input"
 // @Success 201 {object} models.UserRole
-// @Router /users/roles [post]
+// @Router /user-roles [post]
 // @Security Authorization Token
 func CreateUserRole(c *gin.Context) {
 	r := repositories.GetUserRoleRepository()
@@ -94,7 +94,7 @@ func CreateUserRole(c *gin.Context) {
 // @Param id path integer true "User Role ID"
 // @Param input body UserRoleInput true "User Role Input"
 // @Success 200 {object} models.UserRole
-// @Router /users/roles/{id} [put]
+// @Router /user-roles/{id} [put]
 // @Security Authorization Token
 func UpdateUserRole(c *gin.Context) {
 	id := c.Params.ByName("id")
@@ -128,7 +128,7 @@ func UpdateUserRole(c *gin.Context) {
 // @Tags user_roles
 // @Param id path integer true "User Role ID"
 // @Success 204
-// @Router /users/roles/{id} [delete]
+// @Router /user-roles/{id} [delete]
 // @Security Authorization Token
 func DeleteUserRole(c *gin.Context) {
 	id := c.Params.ByName("id")
