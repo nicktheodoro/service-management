@@ -6,8 +6,6 @@ definitions:
         type: string
       complement:
         type: string
-      customer_id:
-        type: integer
       district:
         type: string
       number:
@@ -20,7 +18,6 @@ definitions:
         type: string
     required:
     - city
-    - customer_id
     - district
     - number
     - state
@@ -40,7 +37,6 @@ definitions:
       phone:
         type: string
     required:
-    - address
     - document
     - email
     - name
@@ -98,8 +94,6 @@ definitions:
     type: object
   customers.Customer:
     properties:
-      address:
-        $ref: '#/definitions/customers.CustomerAddress'
       created_at:
         type: string
       document:
@@ -123,8 +117,6 @@ definitions:
         type: string
       created_at:
         type: string
-      customer_id:
-        type: integer
       district:
         type: string
       id:
@@ -290,9 +282,9 @@ paths:
       - Authorization Token: []
       tags:
       - customers
-  /customers/addresses:
+  /customers/{id}/addresses:
     get:
-      description: get all customers addresses
+      description: get all customer addresses
       produces:
       - application/json
       responses:
@@ -328,7 +320,7 @@ paths:
       - Authorization Token: []
       tags:
       - customers_addresses
-  /customers/addresses/{id}:
+  /customers/{id}/addresses/{addressId}:
     delete:
       description: delete an existing customer address by ID
       parameters:
