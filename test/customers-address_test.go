@@ -38,6 +38,7 @@ func TestAddCustomerAddress(t *testing.T) {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
+	CustomerTest = customer
 	CustomerAddressTest = modelToAdd
 }
 

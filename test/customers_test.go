@@ -17,14 +17,14 @@ func TestAddCustomer(t *testing.T) {
 		Email:    "antonio@teste.com",
 		Phone:    "+5521990178696",
 		Document: "123.456.789-00",
-		Address: models.CustomerAddress{
+		Address: []models.CustomerAddress{{
 			ZipCode:  "25955540",
 			Street:   "Fortaleza",
 			Number:   "139",
 			District: "Bom Retiro",
 			City:     "Teresópolis",
 			State:    "RJ",
-		},
+		}},
 	}
 	r := repositories.GetCustomerRepository()
 	if err := r.Create(&modelToAdd); err != nil {
@@ -46,13 +46,13 @@ func TestUpdateCustomer(t *testing.T) {
 	modelToUpdate.Email = "updated.email@test.com"
 	modelToUpdate.Phone = "updated_phone"
 	modelToUpdate.Document = "updated_document"
-	modelToUpdate.Address = models.CustomerAddress{
+	modelToUpdate.Address = []models.CustomerAddress{{
 		ZipCode:  "updated",
 		Street:   "updated",
 		Number:   "updated",
 		District: "updated",
 		City:     "updated",
-		State:    "UP"}
+		State:    "UP"}}
 
 	if err := r.Update(modelToUpdate); err != nil {
 		t.Fatalf("Expected no error, got %v", err)
@@ -61,11 +61,18 @@ func TestUpdateCustomer(t *testing.T) {
 	expect := CustomerTest.Name != modelToUpdate.Name ||
 		CustomerTest.Email != modelToUpdate.Email ||
 		CustomerTest.Phone != modelToUpdate.Phone ||
-		CustomerTest.Document != modelToUpdate.Document ||
-		CustomerTest.Address != modelToUpdate.Address
+		CustomerTest.Document != modelToUpdate.Document
 
 	if !expect {
 		t.Fatalf("UpdateCustomer test failed")
+	}
+
+	for i, address := range CustomerTest.Address {
+		expect = address != modelToUpdate.Address[i]
+	}
+
+	if !expect {
+		t.Fatalf("UpdateCustomer adresses test failed")
 	}
 }
 

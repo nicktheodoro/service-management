@@ -13,11 +13,11 @@ import (
 )
 
 type CustomerInput struct {
-	Name     string                 `json:"name" binding:"required"`
-	Email    string                 `json:"email" binding:"required"`
-	Phone    string                 `json:"phone" binding:"required"`
-	Document string                 `json:"document" binding:"required"`
-	Address  models.CustomerAddress `json:"address"`
+	Name     string                   `json:"name" binding:"required"`
+	Email    string                   `json:"email" binding:"required"`
+	Phone    string                   `json:"phone" binding:"required"`
+	Document string                   `json:"document" binding:"required"`
+	Address  []models.CustomerAddress `json:"address"`
 }
 
 // GetCustomer godoc
