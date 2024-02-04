@@ -22,6 +22,10 @@ type BudgetInput struct {
 	Items       []models.BudgetItem `json:"items"`
 }
 
+type BudgetUpdateStatusInput struct {
+	Status models.BudgetStatus `json:"status" binding:"required"`
+}
+
 // GetBudget godoc
 // @Description get all budgets
 // @Tags budgets
@@ -109,12 +113,11 @@ func CreateBudget(c *gin.Context) {
 // @Security Authorization Token
 func UpdateBudget(c *gin.Context) {
 	id := c.Params.ByName("id")
-	r := repositories.GetBudgetRepository()
-
 	var input BudgetInput
 	_ = c.BindJSON(&input)
-	model, err := r.GetByID(id)
 
+	r := repositories.GetBudgetRepository()
+	model, err := r.GetByID(id)
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("budget not found"))
 		log.Println(err)
@@ -127,7 +130,6 @@ func UpdateBudget(c *gin.Context) {
 	model.CustomerID = input.CustomerID
 	model.Items = input.Items
 	err = r.Update(model)
-
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, err)
 		log.Println(err)
@@ -163,4 +165,39 @@ func DeleteBudget(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusNoContent, "")
+}
+
+// UpdateBudget godoc
+// @Description update an existing budget status
+// @Tags budgets
+// @Accept json
+// @Produce json
+// @Param id path integer true "Budget ID"
+// @Param input body BudgetUpdateStatusInput true "Budget Update Status Input"
+// @Success 200 {object} budgets.Budget
+// @Router /budgets/{id}/status [patch]
+// @Security Authorization Token
+func UpdateBudgetStatus(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var input BudgetUpdateStatusInput
+	_ = c.BindJSON(&input)
+
+	r := repositories.GetBudgetRepository()
+	model, err := r.GetByID(id)
+	if err != nil {
+		http_err.NewError(c, http.StatusNotFound, errors.New("budget not found"))
+		log.Println(err)
+		return
+	}
+
+	model.Status = input.Status
+	err = r.Update(model)
+
+	if err != nil {
+		http_err.NewError(c, http.StatusNotFound, err)
+		log.Println(err)
+		return
+	}
+
+	c.JSON(http.StatusOK, model)
 }

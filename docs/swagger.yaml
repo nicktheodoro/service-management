@@ -27,6 +27,8 @@ definitions:
         type: string
       id:
         type: integer
+      provider:
+        $ref: '#/definitions/providers.Provider'
       provider_id:
         type: integer
       service:
@@ -68,6 +70,11 @@ definitions:
     required:
     - provider_id
     - service_id
+    type: object
+  controllers.BudgetUpdateStatusInput:
+    properties:
+      status:
+        type: string
     type: object
   controllers.CustomerAddressInput:
     properties:
@@ -486,6 +493,34 @@ paths:
       - Authorization Token: []
       tags:
       - budgets_items
+  /budgets/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      description: update an existing budget status
+      parameters:
+      - description: Budget ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Budget Update Status Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.BudgetUpdateStatusInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/budgets.Budget'
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets
   /customers:
     get:
       description: get all customers

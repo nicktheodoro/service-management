@@ -36,4 +36,10 @@ var budgetRoutes = []Route{
 		HandlerFunc: controllers.DeleteBudget,
 		RequireAuth: true,
 	},
+	{
+		URI:         "/budgets/:id/update-status",
+		Method:      http.MethodPatch,
+		HandlerFunc: controllers.UpdateBudgetStatus,
+		RequireAuth: true,
+	},
 }

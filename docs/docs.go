@@ -344,6 +344,51 @@ const docTemplate = `{
                 }
             }
         },
+        "/budgets/{id}/status": {
+            "patch": {
+                "security": [
+                    {
+                        "Authorization Token": []
+                    }
+                ],
+                "description": "update an existing budget status",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "budgets"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Budget ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Budget Update Status Input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.BudgetUpdateStatusInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/budgets.Budget"
+                        }
+                    }
+                }
+            }
+        },
         "/customers": {
             "get": {
                 "security": [
@@ -1404,6 +1449,9 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
+                "provider": {
+                    "$ref": "#/definitions/providers.Provider"
+                },
                 "provider_id": {
                     "type": "integer"
                 },
@@ -1464,6 +1512,14 @@ const docTemplate = `{
                 },
                 "service_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "controllers.BudgetUpdateStatusInput": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
                 }
             }
         },
