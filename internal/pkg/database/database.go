@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"service-management/internal/pkg/config"
+	"service-management/internal/pkg/models/budgets"
 	"service-management/internal/pkg/models/customers"
 	"service-management/internal/pkg/models/providers"
 	"service-management/internal/pkg/models/services"
@@ -54,10 +55,15 @@ func GetDB() *gorm.DB {
 
 // Auto migrate project models
 func migration() {
-	DB.AutoMigrate(&users.UserRole{})
-	DB.AutoMigrate(&users.User{}).AddForeignKey("role_id", "user_roles(id)", "CASCADE", "CASCADE")
-	DB.AutoMigrate(&customers.Customer{})
-	DB.AutoMigrate(&customers.CustomerAddress{}).AddForeignKey("customer_id", "customers(id)", "CASCADE", "CASCADE")
 	DB.AutoMigrate(&services.Service{})
 	DB.AutoMigrate(&providers.Provider{})
+	DB.AutoMigrate(&customers.Customer{})
+	DB.AutoMigrate(&customers.CustomerAddress{}).AddForeignKey("customer_id", "customers(id)", "CASCADE", "CASCADE")
+	DB.AutoMigrate(&budgets.Budget{}).AddForeignKey("customer_id", "customers(id)", "CASCADE", "CASCADE")
+	DB.AutoMigrate(&budgets.BudgetItem{}).
+		AddForeignKey("provider_id", "providers(id)", "CASCADE", "CASCADE").
+		AddForeignKey("service_id", "services(id)", "CASCADE", "CASCADE").
+		AddUniqueIndex("idx_provider_client", "budget_id", "service_id")
+	DB.AutoMigrate(&users.UserRole{})
+	DB.AutoMigrate(&users.User{}).AddForeignKey("role_id", "user_roles(id)", "CASCADE", "CASCADE")
 }

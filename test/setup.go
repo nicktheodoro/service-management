@@ -8,10 +8,12 @@ import (
 func SetupTests() {
 	config.Setup("./config.yml")
 	database.SetupDB()
-	database.GetDB().Exec("DELETE FROM users")
-	database.GetDB().Exec("DELETE FROM user_roles")
+	database.GetDB().Exec("DELETE FROM budgets")
+	database.GetDB().Exec("DELETE FROM budget_items")
 	database.GetDB().Exec("DELETE FROM customers")
 	database.GetDB().Exec("DELETE FROM customers_address")
 	database.GetDB().Exec("DELETE FROM services")
 	database.GetDB().Exec("DELETE FROM providers")
+	database.GetDB().Exec("DELETE FROM users")
+	database.GetDB().Exec("DELETE FROM user_roles")
 }

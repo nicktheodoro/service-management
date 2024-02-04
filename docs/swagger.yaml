@@ -1,5 +1,74 @@
 basePath: /
 definitions:
+  budgets.Budget:
+    properties:
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      description:
+        type: string
+      discount:
+        type: integer
+      id:
+        type: integer
+      note:
+        type: string
+      status:
+        type: string
+      surcharge:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  budgets.BudgetItem:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      provider_id:
+        type: integer
+      service:
+        $ref: '#/definitions/services.Service'
+      updated_at:
+        type: string
+    type: object
+  controllers.BudgetInput:
+    properties:
+      customer_id:
+        type: integer
+      description:
+        type: string
+      discount:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/budgets.BudgetItem'
+        type: array
+      note:
+        type: string
+      status:
+        type: string
+      surcharge:
+        type: integer
+    required:
+    - customer_id
+    - description
+    - status
+    type: object
+  controllers.BudgetItemInput:
+    properties:
+      note:
+        type: string
+      provider_id:
+        type: integer
+      service_id:
+        type: integer
+    required:
+    - provider_id
+    - service_id
+    type: object
   controllers.CustomerAddressInput:
     properties:
       city:
@@ -27,7 +96,9 @@ definitions:
   controllers.CustomerInput:
     properties:
       address:
-        $ref: '#/definitions/customers.CustomerAddress'
+        items:
+          $ref: '#/definitions/customers.CustomerAddress'
+        type: array
       document:
         type: string
       email:
@@ -215,6 +286,206 @@ info:
   description: API REST in Golang with Gin Framework
   version: "1.0"
 paths:
+  /budgets:
+    get:
+      description: get all budgets
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/budgets.Budget'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets
+    post:
+      consumes:
+      - application/json
+      description: create a new Budget
+      parameters:
+      - description: Budget Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.BudgetInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/budgets.Budget'
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets
+  /budgets/{id}:
+    delete:
+      description: delete an existing Budget by ID
+      parameters:
+      - description: Budget ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets
+    get:
+      description: get Budget by ID
+      parameters:
+      - description: Budget ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/budgets.Budget'
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets
+    put:
+      consumes:
+      - application/json
+      description: update an existing budget by ID
+      parameters:
+      - description: Budget ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Budget Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.BudgetInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/budgets.Budget'
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets
+  /budgets/{id}/items:
+    get:
+      description: get all budget items
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/budgets.BudgetItem'
+            type: array
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets_items
+    post:
+      consumes:
+      - application/json
+      description: create a new budget item
+      parameters:
+      - description: Budget Item Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.BudgetItemInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/budgets.BudgetItem'
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets_items
+  /budgets/{id}/items/{itemId}:
+    delete:
+      description: delete an existing budget item by ID
+      parameters:
+      - description: Budget Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets_items
+    get:
+      description: get Budget Item by ID
+      parameters:
+      - description: Budget Item ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/budgets.BudgetItem'
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets_items
+    put:
+      consumes:
+      - application/json
+      description: update an existing budget item by ID
+      parameters:
+      - description: Budget ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Budget Item Input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.BudgetItemInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/budgets.BudgetItem'
+      security:
+      - Authorization Token: []
+      tags:
+      - budgets_items
   /customers:
     get:
       description: get all customers

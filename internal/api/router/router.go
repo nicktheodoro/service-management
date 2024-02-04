@@ -26,12 +26,14 @@ func Setup(mode string) *gin.Engine {
 func ConfigureRoutes(app *gin.Engine) *gin.Engine {
 	var routes []Route
 	routes = append(routes, authRoute)
-	routes = append(routes, customerRoutes...)
+	routes = append(routes, budgetItemRoutes...)
+	routes = append(routes, budgetRoutes...)
 	routes = append(routes, customerAddressRoutes...)
+	routes = append(routes, customerRoutes...)
 	routes = append(routes, providerRoutes...)
 	routes = append(routes, serviceRoutes...)
-	routes = append(routes, userRoutes...)
 	routes = append(routes, userRoleRoutes...)
+	routes = append(routes, userRoutes...)
 
 	for _, route := range routes {
 		if route.RequireAuth {
