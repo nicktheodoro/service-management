@@ -2,7 +2,27 @@
 
 ## Overview
 
-This API, built with the Gin framework and Gorm, provides a foundation for managing services within Golang applications. It's currently in its initial stage!
+This example API, crafted with the Gin framework and Gorm, stands as a mature solution for effective service management within Golang applications. By embracing Go's conventions, the project structure adheres to best practices. The REST architecture is implemented, aligning with Golang standards to ensure clean semantics and maintainability.
+
+## Installation
+
+Before running the application, ensure you have the necessary dependencies installed. Follow the steps below:
+
+1. **Install Go (Golang):**
+
+   Download and install Go from [golang.org](https://golang.org/dl/). Verify the installation by running:
+
+   ```bash
+   go version
+   ```
+
+2. **Download Dependencies:**
+
+   Run the following command to download the project dependencies:
+
+   ```bash
+   go mod download
+   ```
 
 ## Run the application
 

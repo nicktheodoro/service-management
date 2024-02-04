@@ -75,6 +75,8 @@ definitions:
     properties:
       status:
         type: string
+    required:
+    - status
     type: object
   controllers.CustomerAddressInput:
     properties:
@@ -289,8 +291,14 @@ definitions:
         type: string
     type: object
 info:
-  contact: {}
-  description: API REST in Golang with Gin Framework
+  contact:
+    email: nicolastheodoro@gmail.com
+    name: Nicolas Theodoro Lopes
+  description: This API facilitates service management within a Golang application,
+    leveraging the Gin Framework and Gorm ORM.
+  license:
+    name: MIT
+    url: https://github.com/nicktheodoro/service-management/blob/main/LICENSE
   version: "1.0"
 paths:
   /budgets:

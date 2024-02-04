@@ -1,8 +1,15 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API REST in Golang with Gin Framework",
-        "contact": {},
+        "description": "This API facilitates service management within a Golang application, leveraging the Gin Framework and Gorm ORM.",
+        "contact": {
+            "name": "Nicolas Theodoro Lopes",
+            "email": "nicolastheodoro@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/nicktheodoro/service-management/blob/main/LICENSE"
+        },
         "version": "1.0"
     },
     "basePath": "/",
@@ -1508,6 +1515,9 @@
         },
         "controllers.BudgetUpdateStatusInput": {
             "type": "object",
+            "required": [
+                "status"
+            ],
             "properties": {
                 "status": {
                     "type": "string"

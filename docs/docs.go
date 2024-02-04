@@ -10,7 +10,14 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "contact": {
+            "name": "Nicolas Theodoro Lopes",
+            "email": "nicolastheodoro@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/nicktheodoro/service-management/blob/main/LICENSE"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -1517,6 +1524,9 @@ const docTemplate = `{
         },
         "controllers.BudgetUpdateStatusInput": {
             "type": "object",
+            "required": [
+                "status"
+            ],
             "properties": {
                 "status": {
                     "type": "string"
@@ -1856,7 +1866,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "",
-	Description:      "API REST in Golang with Gin Framework",
+	Description:      "This API facilitates service management within a Golang application, leveraging the Gin Framework and Gorm ORM.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }
