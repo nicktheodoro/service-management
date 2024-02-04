@@ -21,7 +21,7 @@ func (r *BudgetItemRepository) GetAll(budgetID string) (*[]models.BudgetItem, er
 	w := models.BudgetItem{}
 	w.BudgetID, _ = strconv.ParseUint(budgetID, 10, 64)
 
-	err := Find(&w, &m, []string{"Service"}, "id asc")
+	err := Find(&w, &m, []string{"Provider", "Service"}, "id asc")
 	return &m, err
 }
 
@@ -30,7 +30,7 @@ func (r *BudgetItemRepository) GetByID(budgetID, id string) (*models.BudgetItem,
 	w := models.BudgetItem{}
 	w.ID, _ = strconv.ParseUint(id, 10, 64)
 	w.BudgetID, _ = strconv.ParseUint(budgetID, 10, 64)
-	_, err := First(&w, &m, []string{"Service"})
+	_, err := First(&w, &m, []string{"Provider", "Service"})
 
 	if err != nil {
 		return nil, err
