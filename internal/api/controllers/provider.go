@@ -21,12 +21,14 @@ type ProviderInput struct {
 }
 
 // GetProvider godoc
-// @Description get all providers
-// @Tags providers
-// @Produce json
-// @Success 200 {array} providers.Provider
-// @Router /providers [get]
-// @Security Authorization Token
+//
+//	@Description get Provider by ID
+//	@Tags providers
+//	@Produce json
+//	@Param id path integer true "Provider ID"
+//	@Success 200 {object} providers.Provider
+//	@Router /providers/{id} [get]
+//	@Security Authorization Token
 func GetProvider(c *gin.Context) {
 	r := repositories.GetProviderRepository()
 	id := c.Param("id")
@@ -43,13 +45,12 @@ func GetProvider(c *gin.Context) {
 
 // GetProvider godoc
 //
-//	@Description get Provider by ID
-//	@Tags providers
-//	@Produce json
-//	@Param id path integer true "Provider ID"
-//	@Success 200 {object} providers.Provider
-//	@Router /providers/{id} [get]
-//	@Security Authorization Token
+// @Description get all providers
+// @Tags providers
+// @Produce json
+// @Success 200 {array} providers.Provider
+// @Router /providers [get]
+// @Security Authorization Token
 func GetProviders(c *gin.Context) {
 	r := repositories.GetProviderRepository()
 	models, err := r.GetAll()
@@ -63,6 +64,7 @@ func GetProviders(c *gin.Context) {
 }
 
 // CreateProvider godoc
+//
 // @Description create a new Provider
 // @Tags providers
 // @Accept json
@@ -93,6 +95,7 @@ func CreateProvider(c *gin.Context) {
 }
 
 // UpdateProvider godoc
+//
 // @Description update an existing provider by ID
 // @Tags providers
 // @Accept json
@@ -132,6 +135,7 @@ func UpdateProvider(c *gin.Context) {
 }
 
 // DeleteProvider godoc
+//
 // @Description delete an existing Provider by ID
 // @Tags providers
 // @Param id path integer true "Provider ID"

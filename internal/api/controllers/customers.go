@@ -21,12 +21,14 @@ type CustomerInput struct {
 }
 
 // GetCustomer godoc
-// @Description get all customers
-// @Tags customers
-// @Produce json
-// @Success 200 {array} customers.Customer
-// @Router /customers [get]
-// @Security Authorization Token
+//
+//	@Description get Customer by ID
+//	@Tags customers
+//	@Produce json
+//	@Param id path integer true "Customer ID"
+//	@Success 200 {object} customers.Customer
+//	@Router /customers/{id} [get]
+//	@Security Authorization Token
 func GetCustomer(c *gin.Context) {
 	r := repositories.GetCustomerRepository()
 	id := c.Param("id")
@@ -43,13 +45,12 @@ func GetCustomer(c *gin.Context) {
 
 // GetCustomer godoc
 //
-//	@Description get Customer by ID
-//	@Tags customers
-//	@Produce json
-//	@Param id path integer true "Customer ID"
-//	@Success 200 {object} customers.Customer
-//	@Router /customers/{id} [get]
-//	@Security Authorization Token
+// @Description get all customers
+// @Tags customers
+// @Produce json
+// @Success 200 {array} customers.Customer
+// @Router /customers [get]
+// @Security Authorization Token
 func GetCustomers(c *gin.Context) {
 	r := repositories.GetCustomerRepository()
 	models, err := r.GetAll()
@@ -63,6 +64,7 @@ func GetCustomers(c *gin.Context) {
 }
 
 // CreateCustomer godoc
+//
 // @Description create a new Customer
 // @Tags customers
 // @Accept json
@@ -93,6 +95,7 @@ func CreateCustomer(c *gin.Context) {
 }
 
 // UpdateCustomer godoc
+//
 // @Description update an existing customer by ID
 // @Tags customers
 // @Accept json
@@ -132,6 +135,7 @@ func UpdateCustomer(c *gin.Context) {
 }
 
 // DeleteCustomer godoc
+//
 // @Description delete an existing Customer by ID
 // @Tags customers
 // @Param id path integer true "Customer ID"

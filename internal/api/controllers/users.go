@@ -22,12 +22,14 @@ type UserInput struct {
 }
 
 // GetUsers godoc
-// @Description get all users
-// @Tags users
-// @Produce json
-// @Success 200 {array} users.User
-// @Router /users [get]
-// @Security Authorization Token
+//
+//	@Description get User by ID
+//	@Tags users
+//	@Produce json
+//	@Param id path integer true "User ID"
+//	@Success 200 {object} users.User
+//	@Router /users/{id} [get]
+//	@Security Authorization Token
 func GetUser(c *gin.Context) {
 	r := repositories.GetUserRepository()
 	id := c.Param("id")
@@ -44,13 +46,12 @@ func GetUser(c *gin.Context) {
 
 // GetUser godoc
 //
-//	@Description get User by ID
-//	@Tags users
-//	@Produce json
-//	@Param id path integer true "User ID"
-//	@Success 200 {object} users.User
-//	@Router /users/{id} [get]
-//	@Security Authorization Token
+// @Description get all users
+// @Tags users
+// @Produce json
+// @Success 200 {array} users.User
+// @Router /users [get]
+// @Security Authorization Token
 func GetUsers(c *gin.Context) {
 	r := repositories.GetUserRepository()
 	models, err := r.GetAll()
@@ -64,6 +65,7 @@ func GetUsers(c *gin.Context) {
 }
 
 // CreateUser godoc
+//
 // @Description create a new user
 // @Tags users
 // @Accept json
@@ -94,6 +96,7 @@ func CreateUser(c *gin.Context) {
 }
 
 // UpdateUser godoc
+//
 // @Description update an existing user by ID
 // @Tags users
 // @Accept json
@@ -134,6 +137,7 @@ func UpdateUser(c *gin.Context) {
 }
 
 // DeleteUser godoc
+//
 // @Description delete an existing user by ID
 // @Tags users
 // @Param id path integer true "User ID"

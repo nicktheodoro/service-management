@@ -18,26 +18,6 @@ type ServiceInput struct {
 	Note        string `json:"note"`
 }
 
-// GetServices godoc
-//
-// @Description get all services
-// @Tags services
-// @Produce json
-// @Success 200 {array} services.Service
-// @Router /services [get]
-// @Security Authorization Token
-func GetServices(c *gin.Context) {
-	r := repositories.GetServiceRepository()
-	res, err := r.GetAll()
-	if err != nil {
-		log.Println(err)
-		http_err.NewError(c, http.StatusNotFound, errors.New("services not found"))
-		return
-	}
-
-	c.JSON(http.StatusOK, res)
-}
-
 // GetService godoc
 //
 //	@Description get Service by ID
@@ -55,6 +35,26 @@ func GetService(c *gin.Context) {
 	if err != nil {
 		http_err.NewError(c, http.StatusNotFound, errors.New("service not found"))
 		log.Println(err)
+		return
+	}
+
+	c.JSON(http.StatusOK, res)
+}
+
+// GetServices godoc
+//
+// @Description get all services
+// @Tags services
+// @Produce json
+// @Success 200 {array} services.Service
+// @Router /services [get]
+// @Security Authorization Token
+func GetServices(c *gin.Context) {
+	r := repositories.GetServiceRepository()
+	res, err := r.GetAll()
+	if err != nil {
+		log.Println(err)
+		http_err.NewError(c, http.StatusNotFound, errors.New("services not found"))
 		return
 	}
 

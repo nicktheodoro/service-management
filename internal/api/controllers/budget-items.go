@@ -34,7 +34,7 @@ func GetBudgetItems(c *gin.Context) {
 	res, err := r.GetAll(budgetID)
 	if err != nil {
 		log.Println(err)
-		http_err.NewError(c, http.StatusNotFound, errors.New("budget items not found"))
+		http_err.NewError(c, http.StatusNotFound, errors.New("budget item not found"))
 		return
 	}
 

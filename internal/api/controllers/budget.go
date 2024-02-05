@@ -27,12 +27,14 @@ type BudgetUpdateStatusInput struct {
 }
 
 // GetBudget godoc
-// @Description get all budgets
-// @Tags budgets
-// @Produce json
-// @Success 200 {array} budgets.Budget
-// @Router /budgets [get]
-// @Security Authorization Token
+//
+//	@Description get Budget by ID
+//	@Tags budgets
+//	@Produce json
+//	@Param id path integer true "Budget ID"
+//	@Success 200 {object} budgets.Budget
+//	@Router /budgets/{id} [get]
+//	@Security Authorization Token
 func GetBudget(c *gin.Context) {
 	r := repositories.GetBudgetRepository()
 	id := c.Param("id")
@@ -49,13 +51,12 @@ func GetBudget(c *gin.Context) {
 
 // GetBudget godoc
 //
-//	@Description get Budget by ID
-//	@Tags budgets
-//	@Produce json
-//	@Param id path integer true "Budget ID"
-//	@Success 200 {object} budgets.Budget
-//	@Router /budgets/{id} [get]
-//	@Security Authorization Token
+// @Description get all budgets
+// @Tags budgets
+// @Produce json
+// @Success 200 {array} budgets.Budget
+// @Router /budgets [get]
+// @Security Authorization Token
 func GetBudgets(c *gin.Context) {
 	r := repositories.GetBudgetRepository()
 	models, err := r.GetAll()
